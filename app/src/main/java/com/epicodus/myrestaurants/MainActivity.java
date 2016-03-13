@@ -1,5 +1,5 @@
 package com.epicodus.myrestaurants;
-
+//This is a comment
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
