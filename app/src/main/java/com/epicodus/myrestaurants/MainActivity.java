@@ -1,6 +1,7 @@
 package com.epicodus.myrestaurants;
 //This is a comment
 //This is also a comment
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         mFindRestaurantsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Hello World!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+                startActivity(intent);
             }
         });
     }
