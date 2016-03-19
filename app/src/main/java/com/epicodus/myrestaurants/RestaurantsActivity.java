@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,17 +21,15 @@ public class RestaurantsActivity extends AppCompatActivity {
     @Bind(R.id.locationTextView) TextView mLocationTextView;
     @Bind(R.id.listView) ListView mListView;
 
-    private String[] restaurants = new String[] {"Andina", "Word of Mouth", "Qdoba", "Mi Mero Mole",
-            "Mother's Bistro", "Life of Pie", "Screen Door", "Luc Lac", "Sweet Basil", "Namaste" };
+    private final String TAG = this.getClass().getSimpleName();
+
+    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
         ButterKnife.bind(this);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, restaurants);
-        mListView.setAdapter(adapter);
 
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
@@ -50,15 +49,32 @@ public class RestaurantsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
-                        Log.v("JSON DATA", jsonData);
+            public void onResponse(Call call, final Response response) throws IOException {
+
+                mRestaurants = yelpService.processResults(response);
+
+                RestaurantsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        String[] restaurantNames = new String[mRestaurants.size()];
+                        for (int i = 0; i < restaurantNames.length; i++) {
+                            restaurantNames[i] = mRestaurants.get(i).getName();
+                        }
+                        ArrayAdapter adapter = new ArrayAdapter(RestaurantsActivity.this, android.R.layout.simple_list_item_1, restaurantNames);
+                        mListView.setAdapter(adapter);
+
+                        for (Restaurant restaurant : mRestaurants) {
+                            Log.d(TAG, "Name: " + restaurant.getName());
+                            Log.d(TAG, "Phone: " + restaurant.getPhone());
+                            Log.d(TAG, "Website: " + restaurant.getWebsite());
+                            Log.d(TAG, "Image url: " + restaurant.getImageUrl());
+                            Log.d(TAG, "Rating: " + Double.toString(restaurant.getRating()));
+                            Log.d(TAG, "Address: " + android.text.TextUtils.join(", ", restaurant.getAddress()));
+                            Log.d(TAG, "Categories: " + restaurant.getCategories().toString());
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                });
             }
         });
     }
