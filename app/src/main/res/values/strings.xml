@@ -4,4 +4,7 @@
     <string name="consumer_secret">LK-Jo3xThz5WI9tsPN0AfWNu64I</string>
     <string name="token">n8a_AgXu11ewsHFL7c9KlqDMTIHa9-RM</string>
     <string name="token_secret">IbJzvf4vhUsRicBOWv64t569mR4</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
