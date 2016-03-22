@@ -1,10 +1,13 @@
 package com.epicodus.myrestaurants.models;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by Jeffrey on 3/19/2016.
  */
+@Parcel
 public class Restaurant {
     private String mName;
     private String mPhone;
@@ -15,6 +18,9 @@ public class Restaurant {
     private double mLatitude;
     private double mLongitude;
     private ArrayList<String> mCategories = new ArrayList<>();
+
+    //empty constructor for Parceler library
+    public Restaurant(){}
 
     public Restaurant(String name, String phone, String website, double rating, String imageUrl, ArrayList<String> address, double latitude, double longitude, ArrayList<String> categories) {
         this.mName = name;
