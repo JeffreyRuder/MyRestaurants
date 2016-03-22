@@ -4,9 +4,12 @@ package com.epicodus.myrestaurants.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.epicodus.myrestaurants.R;
 
@@ -25,6 +28,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         mFindRestaurantsButton.setOnClickListener(this);
+        mLocationEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mFindRestaurantsButton.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
