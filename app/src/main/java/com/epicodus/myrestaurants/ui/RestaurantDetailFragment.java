@@ -1,6 +1,8 @@
 package com.epicodus.myrestaurants.ui;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RestaurantDetailFragment extends Fragment {
+public class RestaurantDetailFragment extends Fragment implements View.OnClickListener {
 
     @Bind(R.id.restaurantImageView) ImageView mImageLabel;
     @Bind(R.id.restaurantNameTextView) TextView mNameLabel;
@@ -67,7 +69,28 @@ public class RestaurantDetailFragment extends Fragment {
         mRatingLabel.setText(Double.toString(mRestaurant.getRating()) + "/5");
         mPhoneLabel.setText(mRestaurant.getPhone());
         mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
+
+        mAddressLabel.setOnClickListener(this);
+        mPhoneLabel.setOnClickListener(this);
+        mWebsiteLabel.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mWebsiteLabel) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRestaurant.getWebsite()));
+            startActivity(intent);
+        } else if (v == mPhoneLabel) {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mRestaurant.getPhone()));
+            startActivity(intent);
+        } else if (v == mAddressLabel) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("geo:" + mRestaurant.getLatitude() + "," + mRestaurant.getLongitude()
+                    + "?q=(" + mRestaurant.getName() + ")"));
+            startActivity(intent);
+        }
     }
 
 }
