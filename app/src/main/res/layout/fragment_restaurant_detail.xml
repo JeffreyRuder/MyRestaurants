@@ -16,7 +16,7 @@
             android:layout_height="180dp"
             android:id="@+id/restaurantImageView"
             android:src="@drawable/waffles"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"
