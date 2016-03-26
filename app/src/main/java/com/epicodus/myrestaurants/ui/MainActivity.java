@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
 
 import butterknife.Bind;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == mFindRestaurantsButton) {
             String location = mLocationEditText.getText().toString();
+            saveLocationToFirebase(location);
             if(!(location).equals("")) {
                 addToSharedPreferences(location);
             }
@@ -62,5 +64,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void addToSharedPreferences(String location) {
         mEditor.putString("location", location).commit();
+    }
+
+    //TODO: Delete this
+    private void saveLocationToFirebase(String location) {
+        MyRestaurantsApplication.getAppInstance()
+                .getFirebaseRef()
+                .child("searchedLocations")
+                .push()
+                .setValue(location);
     }
 }
