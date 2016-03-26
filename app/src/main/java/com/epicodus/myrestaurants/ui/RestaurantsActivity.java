@@ -1,6 +1,8 @@
 package com.epicodus.myrestaurants.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,18 +35,22 @@ public class RestaurantsActivity extends AppCompatActivity {
     private RestaurantListAdapter mAdapter;
     public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
 
+    private SharedPreferences mSharedPreferences;
+    private String mRecentAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
+        mSharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        mRecentAddress = mSharedPreferences.getString("location", null);
+        if (mRecentAddress != null) {
+            getRestaurants(mRecentAddress);
+        }
 
-        getRestaurants(location);
-
-        mLocationTextView.setText("Here are all the restaurants near " + location);
+        mLocationTextView.setText("Here are all the restaurants near " + mRecentAddress);
     }
 
     private void getRestaurants(String location) {
