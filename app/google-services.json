@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_id": "myrestaurants-acd87",
+    "project_number": "438238918686",
+    "name": "MyRestaurants"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438238918686:android:dff6c1b29d00d12f",
+        "client_id": "android:com.epicodus.myrestaurants",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.epicodus.myrestaurants",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438238918686-o25o621uecsd2qjvpjvdjmsdua9ak0sj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.myrestaurants",
+            "certificate_hash": "AD74E1F95DB0307AFB51C3F5A7E56F4F3532349D"
+          }
+        },
+        {
+          "client_id": "438238918686-r89bldrkki8q05n52an9d6h8bgst3noj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

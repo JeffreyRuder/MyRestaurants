@@ -18,8 +18,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:paddingTop="55dp"
-        android:paddingBottom="55dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:background="@color/background_material_light"/>
 
     <LinearLayout
@@ -28,12 +28,11 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:paddingLeft="10dp"
-        android:paddingTop="30dp"
         android:paddingRight="10dp"
-        android:paddingBottom="50dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_below="@+id/textView4">
 
         <EditText
@@ -75,6 +74,22 @@
             android:background="@color/colorAccent"
             android:layout_marginTop="15dp"
             android:textColor="@color/colorIcons" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR:"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorIcons"
+            android:id="@+id/textView2"
+            android:layout_marginTop="15dp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/googleLoginButton" />
 
     </LinearLayout>
 
