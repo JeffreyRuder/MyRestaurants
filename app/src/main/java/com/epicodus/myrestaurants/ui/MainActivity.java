@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
+    @Bind(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
 
     private Firebase mFirebaseRef;
 
@@ -37,12 +38,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkForAuthenticatedUser();
 
         mFindRestaurantsButton.setOnClickListener(this);
+        mSavedRestaurantsButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == mFindRestaurantsButton) {
             Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
+            startActivity(intent);
+        } else if (v == mSavedRestaurantsButton) {
+            Intent intent = new Intent(MainActivity.this, SavedRestaurantListActivity.class);
             startActivity(intent);
         }
     }

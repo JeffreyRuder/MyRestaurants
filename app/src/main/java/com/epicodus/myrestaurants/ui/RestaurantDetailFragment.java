@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
+import com.firebase.client.Firebase;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -35,6 +38,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     @Bind(R.id.saveRestaurantButton) TextView mSaveRestaurantButton;
 
     private Restaurant mRestaurant;
+    private Firebase mFirebaseRef;
+    private String mCurrentUserId;
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
 
@@ -50,6 +55,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRestaurant = Parcels.unwrap(getArguments().getParcelable("restaurant"));
+        mFirebaseRef = MyRestaurantsApplication.getAppInstance().getFirebaseRef();
+        mCurrentUserId = mFirebaseRef.getAuth().getUid();
     }
 
     @Override
@@ -73,6 +80,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         mAddressLabel.setOnClickListener(this);
         mPhoneLabel.setOnClickListener(this);
         mWebsiteLabel.setOnClickListener(this);
+        mSaveRestaurantButton.setOnClickListener(this);
 
         return view;
     }
@@ -90,6 +98,9 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                     Uri.parse("geo:" + mRestaurant.getLatitude() + "," + mRestaurant.getLongitude()
                     + "?q=(" + mRestaurant.getName() + ")"));
             startActivity(intent);
+        } else if (v == mSaveRestaurantButton) {
+            mFirebaseRef.child("restaurants/" + mCurrentUserId + "/" + mRestaurant.getName()).setValue(mRestaurant);
+            Toast.makeText(getContext(), "Restaurant Saved", Toast.LENGTH_LONG).show();
         }
     }
 
