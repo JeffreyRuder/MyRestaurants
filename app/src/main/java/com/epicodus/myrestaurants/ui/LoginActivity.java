@@ -126,15 +126,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             protected void onPostExecute(String token) {
-//                Intent resultIntent = new Intent();
-//                if (token != null) {
-//                    resultIntent.putExtra("oauth_token", token);
-//                } else if (errorMessage != null) {
-//                    resultIntent.putExtra("error", errorMessage);
-//                }
-//                setResult(LoginActivity.RC_GOOGLE_LOGIN, resultIntent);
+                Intent resultIntent = new Intent();
+                if (token != null) {
+                    resultIntent.putExtra("oauth_token", token);
+                } else if (errorMessage != null) {
+                    resultIntent.putExtra("error", errorMessage);
+                }
+                setResult(LoginActivity.RC_GOOGLE_LOGIN, resultIntent);
                 mFirebaseRef.authWithOAuthToken("google", token, mAuthResultHandler);
-//                finish();
+                finish();
             }
         };
         task.execute();
@@ -152,6 +152,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String emailAddress = account.getEmail();
 
                 getGoogleOAuthTokenAndLogin(emailAddress);
+            } else {
+                Log.d(TAG, "Result not successful.");
+                Log.d(TAG, result.getStatus().toString());
             }
         }
     }
@@ -224,9 +227,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 mFirebaseRef.child("users").child(authData.getUid()).setValue(map);
 
-                //go to main activity
-                goToMainActivity();
-                mAuthProgressDialog.hide();
+                if (authData.getProvider() == "password") {
+                    //go to main activity
+                    goToMainActivity();
+                    mAuthProgressDialog.hide();
+                }
             }
 
             @Override

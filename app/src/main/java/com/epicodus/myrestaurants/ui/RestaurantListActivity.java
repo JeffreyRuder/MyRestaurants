@@ -12,7 +12,6 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
@@ -46,7 +45,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurants);
+        setContentView(R.layout.activity_restaurant_list);
         ButterKnife.bind(this);
 
         mFirebaseRef = MyRestaurantsApplication.getAppInstance().getFirebaseRef();
