@@ -37,21 +37,9 @@
         android:backgroundTint="@color/colorAccent"
         android:textColor="@color/colorIcons"
         android:padding="10dp"
-        android:layout_below="@+id/locationEditText"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/locationEditText"
-        android:background="@color/colorIcons"
-        android:padding="5dp"
-        android:hint="Enter Zip Code"
-        android:layout_below="@+id/textView"
-        android:inputType="number"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_below="@+id/textView" />
 
 
 </RelativeLayout>
