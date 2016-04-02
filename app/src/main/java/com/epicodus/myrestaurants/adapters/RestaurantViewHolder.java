@@ -56,11 +56,18 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onItemSelected() {
-        //add animation
+        itemView.animate()
+                .alpha(0.7f)
+                .scaleX(0.9f)
+                .scaleY(0.9f)
+                .setDuration(500);
     }
 
     @Override
     public void onItemClear() {
-        //add animation
+        itemView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f);
     }
 }
