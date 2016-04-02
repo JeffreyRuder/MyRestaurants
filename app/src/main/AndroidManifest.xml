@@ -34,9 +34,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.LoginActivity"
-            android:label="Login/Signup"
+            android:label="Login / Register"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.SavedRestaurantListActivity"></activity>
+        <activity android:name=".ui.SavedRestaurantListActivity"
+            android:label="My Saved Restaurants">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
