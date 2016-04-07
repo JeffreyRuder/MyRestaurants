@@ -13,10 +13,6 @@ import com.epicodus.myrestaurants.MyRestaurantsApplication;
 import com.epicodus.myrestaurants.R;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

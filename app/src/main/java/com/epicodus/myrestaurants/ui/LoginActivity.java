@@ -1,13 +1,11 @@
 package com.epicodus.myrestaurants.ui;
 
 import android.app.ProgressDialog;
-import android.app.VoiceInteractor;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,10 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -215,7 +211,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuthResultHandler = new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
-
                 //save user to database
                 Map<String, String> map = new HashMap<>();
                 map.put("provider", authData.getProvider());
@@ -227,7 +222,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 mFirebaseRef.child("users").child(authData.getUid()).setValue(map);
 
-                if (authData.getProvider() == "password") {
+                if (authData.getProvider().equals("password")) {
                     //go to main activity
                     goToMainActivity();
                     mAuthProgressDialog.hide();
