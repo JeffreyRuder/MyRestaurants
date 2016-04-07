@@ -100,7 +100,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             startActivity(intent);
         } else if (v == mSaveRestaurantButton) {
             mFirebaseRef.child("restaurants/" + mCurrentUserId + "/" + mRestaurant.getName()).setValue(mRestaurant);
-            Toast.makeText(getContext(), "Restaurant Saved", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.restaurant_saved, Toast.LENGTH_LONG).show();
         }
     }
 

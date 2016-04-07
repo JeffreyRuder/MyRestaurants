@@ -25,6 +25,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 public class RestaurantListActivityInstrumentationTest {
+    public static final String RESTAURANT_NAME = "Shut Up and Eat";
+    public static final String RESTAURANT_ZIP = "97202";
+    public static final String RESTAURANT_CITY = "Portland";
 
     @Rule
     public ActivityTestRule<RestaurantListActivity> activityTestRule = new ActivityTestRule<>(RestaurantListActivity.class);
@@ -32,25 +35,31 @@ public class RestaurantListActivityInstrumentationTest {
     @Test
     public void validateSearchWidget() {
         onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText("Portland")).check(matches(withText("Portland")));
+        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_CITY)).check(matches(withText(RESTAURANT_CITY)));
     }
 
     @Test
     public void restaurantListShows() {
         onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText("97202"), pressKey(KeyEvent.KEYCODE_ENTER));
-        onView(withId(R.id.recyclerView)).check(matches(hasDescendant(withText("Shut Up and Eat"))));
+        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_ZIP), pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(withId(R.id.recyclerView)).check(matches(hasDescendant(withText(RESTAURANT_NAME))));
     }
 
     @Test
     public void detailFragmentShows() {
         onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText("97202"), pressKey(KeyEvent.KEYCODE_ENTER));
-        onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItem(
-                hasDescendant(withText("Shut Up and Eat")), click()));
-//        onView(withId(R.id.viewPager)).check(matches(hasDescendant(withText("Shut Up and Eat"))));
-        onView(allOf(withId(R.id.restaurantNameTextView), isDisplayed())).check(matches(withText("Shut Up and Eat")));
+        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_ZIP), pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(RESTAURANT_NAME)), click()));
+        onView(allOf(withId(R.id.restaurantNameTextView), isDisplayed())).check(matches(withText(RESTAURANT_NAME)));
+    }
 
+    @Test
+    public void savedToastIsDisplayed() {
+        onView(withId(R.id.action_search)).perform(click());
+        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_ZIP), pressKey(KeyEvent.KEYCODE_ENTER));
+        onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(RESTAURANT_NAME)), click()));
+        onView(allOf(withId(R.id.saveRestaurantButton), isDisplayed())).perform(click());
+        onView(withText(R.string.restaurant_saved)).inRoot(new ToastMatcher()).check(matches(withText("Restaurant Saved")));
     }
 
 }

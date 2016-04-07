@@ -9,4 +9,5 @@
     <string name="firebase_url">https://myres.firebaseio.com</string>
     <string name="list_draggable_image_placeholder_description">Image of restaurant</string>
     <string name="restaurant_list_rating">"Rating: %d/5"</string>
+    <string name="restaurant_saved">Restaurant Saved</string>
 </resources>
