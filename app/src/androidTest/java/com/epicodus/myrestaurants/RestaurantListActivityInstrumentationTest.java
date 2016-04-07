@@ -1,10 +1,8 @@
 package com.epicodus.myrestaurants;
 
-import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
 
 import com.epicodus.myrestaurants.ui.RestaurantListActivity;
@@ -28,6 +26,7 @@ public class RestaurantListActivityInstrumentationTest {
     public static final String RESTAURANT_NAME = "Shut Up and Eat";
     public static final String RESTAURANT_ZIP = "97202";
     public static final String RESTAURANT_CITY = "Portland";
+    public static final String SAVED_TEXT = "Restaurant Saved";
 
     @Rule
     public ActivityTestRule<RestaurantListActivity> activityTestRule = new ActivityTestRule<>(RestaurantListActivity.class);
@@ -40,26 +39,28 @@ public class RestaurantListActivityInstrumentationTest {
 
     @Test
     public void restaurantListShows() {
-        onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_ZIP), pressKey(KeyEvent.KEYCODE_ENTER));
+        performSearchForRestaurants(RESTAURANT_ZIP);
         onView(withId(R.id.recyclerView)).check(matches(hasDescendant(withText(RESTAURANT_NAME))));
     }
 
     @Test
     public void detailFragmentShows() {
-        onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_ZIP), pressKey(KeyEvent.KEYCODE_ENTER));
+        performSearchForRestaurants(RESTAURANT_ZIP);
         onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(RESTAURANT_NAME)), click()));
         onView(allOf(withId(R.id.restaurantNameTextView), isDisplayed())).check(matches(withText(RESTAURANT_NAME)));
     }
 
     @Test
     public void savedToastIsDisplayed() {
-        onView(withId(R.id.action_search)).perform(click());
-        onView(isAssignableFrom(EditText.class)).perform(typeText(RESTAURANT_ZIP), pressKey(KeyEvent.KEYCODE_ENTER));
+        performSearchForRestaurants(RESTAURANT_ZIP);
         onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(RESTAURANT_NAME)), click()));
         onView(allOf(withId(R.id.saveRestaurantButton), isDisplayed())).perform(click());
-        onView(withText(R.string.restaurant_saved)).inRoot(new ToastMatcher()).check(matches(withText("Restaurant Saved")));
+        onView(withText(R.string.restaurant_saved)).inRoot(new ToastMatcher()).check(matches(withText(SAVED_TEXT)));
+    }
+
+    public void performSearchForRestaurants(String zip) {
+        onView(withId(R.id.action_search)).perform(click());
+        onView(isAssignableFrom(EditText.class)).perform(typeText(zip), pressKey(KeyEvent.KEYCODE_ENTER));
     }
 
 }
